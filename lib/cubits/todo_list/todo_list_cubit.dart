@@ -7,6 +7,7 @@ part 'todo_list_state.dart';
 class TodoListCubit extends Cubit<TodoListState> {
   TodoListCubit() : super(TodoListState.initial());
 
+  // Add a new todo
   void addTodo(String todoDesc) {
     final newTodo = Todo(desc: todoDesc);
     final newTodos = [...state.todos, newTodo];
@@ -14,6 +15,7 @@ class TodoListCubit extends Cubit<TodoListState> {
     emit(state.copyWith(todos: newTodos));
   }
 
+  // Edit a todo
   void editTodo(String id, String todoDesc) {
     final newTodos = state.todos.map((Todo todo) {
       if (todo.id == id) {
@@ -29,6 +31,7 @@ class TodoListCubit extends Cubit<TodoListState> {
     emit(state.copyWith(todos: newTodos));
   }
 
+  // Toggle a todo
   void toggleTodo(String id) {
     // using .map to scan the current state of the todo
     final newTodos = state.todos.map((Todo todo) {
@@ -45,6 +48,7 @@ class TodoListCubit extends Cubit<TodoListState> {
     emit(state.copyWith(todos: newTodos));
   }
 
+  // Remove a todo
   void removeTodo(Todo todo) {
     final newTodos = state.todos.where((Todo t) => t.id != todo.id).toList();
     emit(state.copyWith(todos: newTodos));
